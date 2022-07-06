@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 10.0f;
     public float rotationSpeed = 50.0f;
-  
+    public Animator tigerAnimator;
     void Update()
     {
         float translation = Input.GetAxis("Vertical") * speed;
@@ -18,6 +18,12 @@ public class PlayerController : MonoBehaviour
         transform.Translate(0, 0, translation);
 
         transform.Rotate(0, rotation, 0);
+        if(translation == 0f)
+        {
+            tigerAnimator.SetBool("Walk", false);
+        }
+        else
+            tigerAnimator.SetBool("Walk", true);
 
     }
 }
