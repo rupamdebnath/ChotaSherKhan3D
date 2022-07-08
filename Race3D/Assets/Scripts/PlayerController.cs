@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
             tigerAnimator.SetBool("Run", false);
             speed = 2f;
         }
-        else if (translation > 0f)
+        else if (translation > 0f || translation < 0f)
         {
             tigerAnimator.SetBool("Walk", true);
             tigerAnimator.SetBool("Run", false);
