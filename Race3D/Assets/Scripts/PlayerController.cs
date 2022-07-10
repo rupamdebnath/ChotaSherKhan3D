@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
         {
             tigerAnimator.SetTrigger("Strike");
             actionRunning = true;
-            StartCoroutine(WaitForAction(2f));
+            StartCoroutine(WaitForAction(1.5f));
         }
         else if (Input.GetKeyUp(KeyCode.Mouse0))
         {
