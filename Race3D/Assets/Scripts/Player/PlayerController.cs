@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed;
-    public float rotationSpeed = 50.0f;
+    public float rotationSpeed;
     public Animator tigerAnimator;
 
     bool actionRunning = false;
