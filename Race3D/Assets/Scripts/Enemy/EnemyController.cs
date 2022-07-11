@@ -35,6 +35,10 @@ public class EnemyController : MonoBehaviour
         {
             Attack();
         }
+        if (currentState == EnemyStates.RUN)
+        {
+            Run();
+        }
     }
 
     private void Patrol()
@@ -47,17 +51,26 @@ public class EnemyController : MonoBehaviour
             SetNewDestination();
             patrolTimer = 0f;
         }
-        if (navAgent.velocity.sqrMagnitude > 0)
+        if (navAgent.velocity.sqrMagnitude > 0 && navAgent.velocity.sqrMagnitude < 3)
         {
             enemyAnimator.SetBool("Walk", true);
+            enemyAnimator.SetBool("Run", false);
+        }
+        else if (navAgent.velocity.sqrMagnitude >= 3)
+        {
+            enemyAnimator.SetBool("Run", true);
+            enemyAnimator.SetBool("Walk", false);
         }
         else
         {
             enemyAnimator.SetBool("Walk", false);
         }
-        if ((transform.position.z - playerObject.transform.position.z) < 25f)
+        if (CheckDistance() < 25f)
         {
-            currentState = EnemyStates.ATTACK; 
+            if (CheckDistance() < 15f)
+                currentState = EnemyStates.RUN;
+            else
+                currentState = EnemyStates.ATTACK; 
         }
         else
             currentState = EnemyStates.PATROL;
@@ -81,8 +94,11 @@ public class EnemyController : MonoBehaviour
         NavMeshHit navHit;
         NavMesh.SamplePosition(randDir, out navHit, randRadius, -1);
         navAgent.SetDestination(new Vector3(navHit.position.x, navHit.position.y, playerObject.transform.position.z + 23.42f));
-        //navAgent.SetDestination(new Vector3(navAgent.transform.position.x, navAgent.transform.position.y, 23.42f + playerObject.transform.position.z));
         transform.LookAt(playerObject.transform);
+        if (CheckDistance() < 15f)
+            currentState = EnemyStates.RUN;
+        else
+            currentState = EnemyStates.ATTACK;
         if (shotSpear)
             return;
         StartCoroutine(AttackAction());
@@ -96,14 +112,44 @@ public class EnemyController : MonoBehaviour
         
         enemyAnimator.SetTrigger("Attack");
         yield return new WaitForSeconds(1f);
-        GameObject spearClone = Instantiate(spearPrefab, shootTransform.position, shootTransform.rotation);
-        yield return new WaitForSeconds(2f);
-        Destroy(spearClone);
-        yield return new WaitForSeconds(3f);
-        shotSpear = false;
-        if ((transform.position.z - playerObject.transform.position.z) >= 25f)
+        if (shotSpear)
+        {
+            GameObject spearClone = Instantiate(spearPrefab, shootTransform.position, shootTransform.rotation);
+            yield return new WaitForSeconds(2f);
+            Destroy(spearClone);
+            yield return new WaitForSeconds(3f);
+            shotSpear = false;
+            enemyAnimator.ResetTrigger("Attack");
+        }
+        if (CheckDistance() >= 25f)
             currentState = EnemyStates.PATROL;
-        else
-            currentState = EnemyStates.ATTACK;
+    }
+
+    void Run()
+    {
+        Debug.Log("Inside Run");
+        navAgent.speed = 10f;
+        enemyAnimator.ResetTrigger("Attack");
+        enemyAnimator.SetBool("Run", true);
+        float randRadius = Random.Range(patrolRadiusMin, patrolRadiusMax);
+        Vector3 randDir = Random.insideUnitSphere * randRadius;
+        randDir += transform.position;
+        NavMeshHit navHit;
+        NavMesh.SamplePosition(randDir, out navHit, randRadius, -1);
+        navAgent.SetDestination(navHit.position);
+        navAgent.SetDestination(new Vector3(navHit.position.x, navHit.position.y, playerObject.transform.position.z + 23.42f));
+        if (CheckDistance() >= 15f)
+        {
+            enemyAnimator.SetBool("Run", false);
+            if (CheckDistance() >= 25f)
+                currentState = EnemyStates.PATROL;
+            else
+                currentState = EnemyStates.ATTACK;
+        }
+    }
+
+    float CheckDistance()
+    {
+        return Vector3.Distance(transform.position, playerObject.transform.position);
     }
 }
