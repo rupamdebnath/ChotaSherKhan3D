@@ -51,7 +51,6 @@ public class EnemyController : MonoBehaviour
         else
         {
             enemyAnimator.SetBool("Walk", false);
-            Debug.Log("WAlk is false");
         }
     }
 
