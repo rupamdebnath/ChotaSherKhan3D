@@ -6,13 +6,14 @@ public class SpearController : MonoBehaviour
 {
     public Rigidbody spearBody;
     public Transform shootTransform;
+
     private void Awake()
     {
-  
+        shootTransform = GetComponentInParent<Transform>();
     }
     void Start()
     {
-        spearBody.velocity = 15f * shootTransform.forward;
+        spearBody.velocity = 20f * shootTransform.forward;
     }
 
     void Update()
@@ -20,8 +21,4 @@ public class SpearController : MonoBehaviour
         transform.up = Vector3.Slerp(transform.up, spearBody.velocity.normalized, Time.deltaTime * 15);
     }
 
-    private void FixedUpdate()
-    {
-        
-    }
 }
