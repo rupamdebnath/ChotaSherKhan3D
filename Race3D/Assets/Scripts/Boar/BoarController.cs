@@ -37,6 +37,8 @@ public class BoarController : MonoBehaviour
 
     public GameObject attack_Point;
 
+    private float health = 100f;
+
     //private EnemyAudio enemy_Audio;
 
     void Awake()
@@ -85,8 +87,7 @@ public class BoarController : MonoBehaviour
         if (enemy_State == EnemyState.ATTACK)
         {
             Attack();
-        }
-
+        } 
     }
 
     void Patrol()
@@ -264,6 +265,24 @@ public class BoarController : MonoBehaviour
     public EnemyState Enemy_State
     {
         get; set;
+    }
+    public void SetHealth(float _damage)
+    {
+        health -= _damage;
+    }
+    public void Die()
+    {
+        if (health <= 0)
+        {
+            StartCoroutine(DeathAnime());            
+        }
+    }
+    IEnumerator DeathAnime()
+    {
+        enemy_Anim.Dead();
+        gameObject.GetComponent<BoarController>().enabled = false;
+        yield return new WaitForSeconds(3f);
+        gameObject.SetActive(false);
     }
 }
 

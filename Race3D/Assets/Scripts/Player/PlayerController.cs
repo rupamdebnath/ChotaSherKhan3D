@@ -7,10 +7,11 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float rotationSpeed;
     public Animator tigerAnimator;
-
+    public GameObject cameraObject;
     bool actionRunning = false;
     float translation, rotation;
     public GameObject attack_Point;
+    float health = 100f;
     void Update()
     {
         if (actionRunning == false)
@@ -26,7 +27,8 @@ public class PlayerController : MonoBehaviour
         transform.Translate(0, 0, translation);
 
         transform.Rotate(0, rotation, 0);
-        AnimationInputControls(); 
+        AnimationInputControls();
+        Debug.Log(health);
     }
 
     void AnimationInputControls()
@@ -100,5 +102,25 @@ public class PlayerController : MonoBehaviour
         {
             attack_Point.SetActive(false);
         }
+    }
+
+    public void SetHealth(float _damage)
+    {
+        health -= _damage;
+    }
+    public void Die()
+    {
+        if (health <= 0)
+        {
+            StartCoroutine(DeathAnime());
+        }
+    }
+    IEnumerator DeathAnime()
+    {
+        cameraObject.transform.SetParent(null);
+        gameObject.transform.localRotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 90f);
+        gameObject.GetComponent<PlayerController>().enabled = false;
+        yield return new WaitForSeconds(3f);        
+        gameObject.SetActive(false);
     }
 }
