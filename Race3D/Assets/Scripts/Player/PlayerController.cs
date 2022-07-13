@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     bool actionRunning = false;
     float translation, rotation;
+    public GameObject attack_Point;
     void Update()
     {
         if (actionRunning == false)
@@ -86,6 +87,18 @@ public class PlayerController : MonoBehaviour
         if(target.CompareTag("Home"))
         {
             Debug.Log("Reached");
+        }
+    }
+    void Turn_On_AttackPoint()
+    {
+        attack_Point.SetActive(true);
+    }
+
+    void Turn_Off_AttackPoint()
+    {
+        if (attack_Point.activeInHierarchy)
+        {
+            attack_Point.SetActive(false);
         }
     }
 }

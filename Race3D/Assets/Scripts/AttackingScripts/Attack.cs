@@ -14,7 +14,7 @@ public class Attack : MonoBehaviour
 
         if (hits.Length > 0)
         {
-            Debug.Log(hits[0].gameObject.tag);
+            Debug.Log(hits[0].gameObject);
 
             gameObject.SetActive(false);
 
