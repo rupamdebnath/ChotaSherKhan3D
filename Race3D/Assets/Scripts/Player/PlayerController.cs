@@ -80,4 +80,12 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         actionRunning = false;
     }
+
+    private void OnTriggerEnter(Collider target)
+    {
+        if(target.CompareTag("Home"))
+        {
+            Debug.Log("Reached");
+        }
+    }
 }
