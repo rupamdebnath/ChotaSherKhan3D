@@ -127,7 +127,6 @@ public class EnemyController : MonoBehaviour
 
     void Run()
     {
-        Debug.Log("Inside Run");
         navAgent.speed = 10f;
         enemyAnimator.ResetTrigger("Attack");
         enemyAnimator.SetBool("Run", true);
@@ -137,7 +136,7 @@ public class EnemyController : MonoBehaviour
         NavMeshHit navHit;
         NavMesh.SamplePosition(randDir, out navHit, randRadius, -1);
         navAgent.SetDestination(navHit.position);
-        navAgent.SetDestination(new Vector3(navHit.position.x, navHit.position.y, playerObject.transform.position.z + 23.42f));
+        navAgent.SetDestination(new Vector3(playerObject.transform.position.x + 23.42f, navHit.position.y, playerObject.transform.position.z + 23.42f));
         if (CheckDistance() >= 15f)
         {
             enemyAnimator.SetBool("Run", false);
