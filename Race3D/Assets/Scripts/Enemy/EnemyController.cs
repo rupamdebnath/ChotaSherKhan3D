@@ -27,7 +27,11 @@ public class EnemyController : MonoBehaviour
     }
     private void Update()
     {
-        if(currentState == EnemyStates.PATROL)
+        if (Time.time > 2f)
+        {
+            navAgent.enabled = true;
+        }
+        if (currentState == EnemyStates.PATROL)
         {
             Patrol();
         }
