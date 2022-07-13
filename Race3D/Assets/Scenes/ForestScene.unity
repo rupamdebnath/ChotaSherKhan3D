@@ -35123,7 +35123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6456298d17a9c7d439ab24e8ad6f7b4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 20
   radius: 1
   layerMask:
     serializedVersion: 2

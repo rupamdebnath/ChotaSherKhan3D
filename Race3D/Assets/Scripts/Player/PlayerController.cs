@@ -28,7 +28,6 @@ public class PlayerController : MonoBehaviour
 
         transform.Rotate(0, rotation, 0);
         AnimationInputControls();
-        Debug.Log(health);
     }
 
     void AnimationInputControls()
@@ -118,7 +117,8 @@ public class PlayerController : MonoBehaviour
     IEnumerator DeathAnime()
     {
         cameraObject.transform.SetParent(null);
-        gameObject.transform.localRotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 90f);
+        gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
+        gameObject.transform.localRotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 70f);        
         gameObject.GetComponent<PlayerController>().enabled = false;
         yield return new WaitForSeconds(3f);        
         gameObject.SetActive(false);
