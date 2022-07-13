@@ -9,27 +9,16 @@ public class Attack : MonoBehaviour
     public LayerMask layerMask;
     BoarController boarController;
 
-    private void Start()
-    {
-        
-    }
-
     void Update()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, radius, layerMask);
 
         if (hits.Length > 0)
         {
-            Debug.Log(hits[0].gameObject);
-
-            gameObject.SetActive(false);
-
-            
+            gameObject.SetActive(false);            
 
             if (hits[0].gameObject.tag == "Enemy")
             {
-                //boarController = gameObject.GetComponent<BoarController>();
-                //boarController.SetHealth(damage);
                 hits[0].gameObject.GetComponent<BoarController>().SetHealth(damage);
                 Debug.Log(hits[0].gameObject);
                 hits[0].gameObject.GetComponent<BoarController>().Die();
