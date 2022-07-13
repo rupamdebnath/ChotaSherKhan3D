@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class PlayerController : MonoBehaviour
     float translation, rotation;
     public GameObject attack_Point;
     float health = 100f;
+    [SerializeField]
+    private Image healthStats;
     void Update()
     {
         if (actionRunning == false)
@@ -28,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
         transform.Rotate(0, rotation, 0);
         AnimationInputControls();
+        healthStats.fillAmount = health/100;
     }
 
     void AnimationInputControls()
@@ -103,14 +107,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void SetHealth(float _damage)
+    public void ReduceHealth(float _damage)
     {
         health -= _damage;
+    }
+    public void RecoverHealth(float _damage)
+    {
+        health += _damage;
     }
     public void Die()
     {
         if (health <= 0)
         {
+            healthStats.fillAmount = health / 100;
             StartCoroutine(DeathAnime());
         }
     }

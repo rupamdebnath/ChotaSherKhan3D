@@ -38,7 +38,8 @@ public class BoarController : MonoBehaviour
     public GameObject attack_Point;
 
     private float health = 100f;
-
+    [SerializeField]
+    GameObject tigerObject;
     //private EnemyAudio enemy_Audio;
 
     void Awake()
@@ -273,7 +274,7 @@ public class BoarController : MonoBehaviour
     public void Die()
     {
         if (health <= 0)
-        {
+        {            
             StartCoroutine(DeathAnime());            
         }
     }
@@ -282,6 +283,7 @@ public class BoarController : MonoBehaviour
         enemy_Anim.Dead();
         gameObject.GetComponent<BoarController>().enabled = false;
         yield return new WaitForSeconds(3f);
+        tigerObject.GetComponent<PlayerController>().RecoverHealth(10);
         gameObject.SetActive(false);
     }
 }

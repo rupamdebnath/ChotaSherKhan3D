@@ -25,12 +25,11 @@ public class SpearController : MonoBehaviour
         if (target.gameObject.tag == "Enemy")
         {
             target.gameObject.GetComponent<BoarController>().SetHealth(100f);
-            Debug.Log(target.gameObject);
             target.gameObject.GetComponent<BoarController>().Die();
         }
         else if (target.gameObject.tag == "Player")
         {
-            target.gameObject.GetComponent<PlayerController>().SetHealth(50f);
+            target.gameObject.GetComponent<PlayerController>().ReduceHealth(50f);
             target.gameObject.GetComponent<PlayerController>().Die();
         }
     }

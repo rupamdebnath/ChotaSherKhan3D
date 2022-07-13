@@ -20,12 +20,11 @@ public class Attack : MonoBehaviour
             if (hits[0].gameObject.tag == "Enemy")
             {
                 hits[0].gameObject.GetComponent<BoarController>().SetHealth(damage);
-                Debug.Log(hits[0].gameObject);
                 hits[0].gameObject.GetComponent<BoarController>().Die();
             }
             else if(hits[0].gameObject.tag == "Player")
             {
-                hits[0].gameObject.GetComponent<PlayerController>().SetHealth(damage);
+                hits[0].gameObject.GetComponent<PlayerController>().ReduceHealth(damage);
                 hits[0].gameObject.GetComponent<PlayerController>().Die();
             }
         }
