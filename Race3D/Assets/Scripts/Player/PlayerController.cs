@@ -92,12 +92,21 @@ public class PlayerController : MonoBehaviour
     {
         if(target.CompareTag("Home"))
         {
-            Debug.Log("Reached");
             SoundManager.Instance.PlaySound(1);
             GameManager.Instance.ShowGameMenuAtWin();
-            tigerAnimator.SetTrigger("Roar");
-            SoundManager.Instance.PlaySound(3);
+            StartCoroutine(WinAnimation());                    
         }
+    }
+
+    IEnumerator WinAnimation()
+    {
+        cameraObject.transform.SetParent(null);
+        gameObject.GetComponent<PlayerController>().enabled = false;
+        tigerAnimator.SetBool("Walk", false);
+        tigerAnimator.SetBool("Run", false);
+        yield return new WaitForSeconds(3);
+        tigerAnimator.SetTrigger("Roar");
+        SoundManager.Instance.PlaySound(3);        
     }
     void Turn_On_AttackPoint()
     {
