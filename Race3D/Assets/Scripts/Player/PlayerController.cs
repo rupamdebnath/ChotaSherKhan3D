@@ -73,8 +73,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             tigerAnimator.SetTrigger("Roar");
-            actionRunning = true;
             SoundManager.Instance.PlaySound(3);
+            actionRunning = true;                
             StartCoroutine(WaitForAction(3f));
         }
         else if (Input.GetKeyUp(KeyCode.Mouse1))
