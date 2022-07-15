@@ -281,6 +281,7 @@ public class BoarController : MonoBehaviour
     IEnumerator DeathAnime()
     {
         enemy_Anim.Dead();
+        SoundManager.Instance.PlaySound(2);
         gameObject.GetComponent<BoarController>().enabled = false;
         yield return new WaitForSeconds(3f);
         tigerObject.GetComponent<PlayerController>().RecoverHealth(10);

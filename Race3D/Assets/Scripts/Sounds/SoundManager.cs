@@ -1,13 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public SoundManager instance;
+    private static SoundManager instance;
 
     public List<AudioSource> audiosources;
-    private SoundManager Instance { get { return instance; } }
+    public static SoundManager Instance { get { return instance; } }
     private void Awake()
     {
         if (instance == null)
@@ -20,5 +21,11 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void PlaySound(int index)
+    {
+        if (!audiosources[index].isPlaying)
+            audiosources[index].Play();
+
+    }
 
 }

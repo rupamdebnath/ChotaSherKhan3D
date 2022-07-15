@@ -74,9 +74,10 @@ public class PlayerController : MonoBehaviour
         {
             tigerAnimator.SetTrigger("Roar");
             actionRunning = true;
+            SoundManager.Instance.PlaySound(3);
             StartCoroutine(WaitForAction(3f));
         }
-        else if (Input.GetKeyUp(KeyCode.Mouse0))
+        else if (Input.GetKeyUp(KeyCode.Mouse1))
         {
             tigerAnimator.ResetTrigger("Roar");
         }
@@ -92,6 +93,7 @@ public class PlayerController : MonoBehaviour
         if(target.CompareTag("Home"))
         {
             Debug.Log("Reached");
+            SoundManager.Instance.PlaySound(1);
         }
     }
     void Turn_On_AttackPoint()
