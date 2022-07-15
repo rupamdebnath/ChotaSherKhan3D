@@ -207,8 +207,6 @@ public class BoarController : MonoBehaviour
 
         navAgent.velocity = Vector3.zero;
         navAgent.isStopped = true;
-        if (!gameObject.GetComponent<AudioSource>().isPlaying)
-            gameObject.GetComponent<AudioSource>().Play();
         attack_Timer += Time.deltaTime;
 
         if (attack_Timer > wait_Before_Attack)
@@ -218,8 +216,7 @@ public class BoarController : MonoBehaviour
 
             attack_Timer = 0f;
 
-            // play attack sound
-            //enemy_Audio.Play_AttackSound();
+            SoundManager.Instance.PlaySound(5);
 
         }
 

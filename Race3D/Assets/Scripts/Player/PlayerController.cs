@@ -94,6 +94,9 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Reached");
             SoundManager.Instance.PlaySound(1);
+            GameManager.Instance.ShowGameMenuAtWin();
+            tigerAnimator.SetTrigger("Roar");
+            SoundManager.Instance.PlaySound(3);
         }
     }
     void Turn_On_AttackPoint()
@@ -131,7 +134,10 @@ public class PlayerController : MonoBehaviour
         gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
         gameObject.transform.localRotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 70f);        
         gameObject.GetComponent<PlayerController>().enabled = false;
-        yield return new WaitForSeconds(3f);        
+        SoundManager.Instance.StopAllSounds();
+        GameManager.Instance.ShowGameMenuAtDeath();
+        yield return new WaitForSeconds(3f);
         gameObject.SetActive(false);
+        //Destroy(gameObject);
     }
 }
