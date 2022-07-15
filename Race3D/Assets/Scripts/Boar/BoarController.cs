@@ -215,8 +215,8 @@ public class BoarController : MonoBehaviour
             enemy_Anim.Attack();
 
             attack_Timer = 0f;
-
-            SoundManager.Instance.PlaySound(5);
+            if(tigerObject.activeSelf)
+                SoundManager.Instance.PlaySound(5);
 
         }
 
